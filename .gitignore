@@ -1,0 +1,53 @@
+.gradle
+/local.properties
+/gradle.properties
+/.idea/workspace.xml
+.DS_Store
+/build
+sioapijava/
+
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+assets/crashlytics-build.properties
+
+# generated files
+bin/
+gen/
+res/values/com_crashlytics_export_strings.xml
+
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpathy
+
+# Android Studio
+.idea
+*.iml
