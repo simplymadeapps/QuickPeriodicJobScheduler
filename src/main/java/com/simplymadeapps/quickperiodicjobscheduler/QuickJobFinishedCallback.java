@@ -5,5 +5,9 @@ package com.simplymadeapps.quickperiodicjobscheduler;
  */
 
 public interface QuickJobFinishedCallback {
+    /**
+     * This callback should be called at the end of your PeriodicJob code
+     * @param shouldBeRescheduled Set to true if this job should be rescheduled according to the back-off criteria specified at schedule-time. False otherwise.
+     */
     public void jobFinished(boolean shouldBeRescheduled);
 }
