@@ -12,26 +12,26 @@ Add job(s) to the collection - this should be called in your Application's onCre
 ```javascript
 @Override
     public void onCreate() {
-        super.onCreate();
+    super.onCreate();
+    int jobId = 1;
+    QuickPeriodicJob job = new QuickPeriodicJob(jobId, new PeriodicJob() {
+        @Override
+        public void execute(QuickJobFinishedCallback callback) {
+            System.out.println("Job Fired");
+            callback.jobFinished(false);
+        }
+    });
 
-		int jobId = 1;
-        QuickPeriodicJob job = new QuickPeriodicJob(jobId, new PeriodicJob() {
-            @Override
-            public void execute(QuickJobFinishedCallback callback) {
-                System.out.println("Job Fired");
-                callback.jobFinished(false);
-            }
-        });
-
-        QuickPeriodicJobCollection.addJob(job);
-    }
+    QuickPeriodicJobCollection.addJob(job);
+}
 ```
 When you are ready to schedule the job, you can do so using the jobId associated with the QuickPeriodicJob that you added to your collection above.
 ```javascript
 QuickPeriodicJobScheduler jobScheduler = new QuickPeriodicJobScheduler(context);
 jobScheduler.start(1, 60000l); // Run job with jobId=1 every 60 seconds
 ```
-Once scheduled, your job will run in the foreground and background near the interval you specified.  If you would like to stop the periodic job, use `jobScheduler.stop(1)`. 
+This would schedule the QuickPeriodicJob we added to our QuickPeriodicJobCollection above.  Every 60 seconds, you should see "Job Fired" printed in the console.
+Once scheduled, your job will run in the foreground or background near the interval you specified.  If you would like to stop the periodic job, use `jobScheduler.stop(1)`. 
 # Additional Information
 1)  The QuickPeriodicJob will survive reboots.  There is no need to reschedule after rebooting.
 
