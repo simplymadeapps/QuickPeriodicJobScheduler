@@ -1,0 +1,11 @@
+dependencies:
+  pre:
+  # override:
+    - ./gradlew dependencies
+  post:
+    - rm -r ~/.gradle
+test:
+  override:
+    # start the emulator
+    - ./gradlew jacocoTestReportDebug
+    - ./gradlew createDebugCoverageReport
