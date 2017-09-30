@@ -45,6 +45,9 @@ android {
             testCoverageEnabled = true
         }
     }
+    dexOptions {
+        preDexLibraries false
+    }
 }
 
 repositories {
