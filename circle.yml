@@ -1,6 +1,4 @@
 dependencies:
-  override:
-    - ./gradlew dependencies
   post:
     - rm -r ~/.gradle
 test:
