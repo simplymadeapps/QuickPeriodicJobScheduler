@@ -12,6 +12,8 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
 @RunWith(AndroidJUnit4.class)
 public class InstrumentedTests {
 
@@ -19,16 +21,22 @@ public class InstrumentedTests {
     public void testStart() {
         Context context = InstrumentationRegistry.getTargetContext();
         QuickPeriodicJobScheduler qpjs = new QuickPeriodicJobScheduler(context);
-        qpjs.start(1, 30000l);
+        qpjs.start(2, 30000l);
 
         SystemClock.sleep(1000);
 
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        JobInfo jobInfo = jobScheduler.getPendingJob(1);
+        List<JobInfo> jobInfoList = jobScheduler.getAllPendingJobs();
+        JobInfo jobInfo = null;
+        for(JobInfo job : jobInfoList) {
+            if(job.getId() == 2) {
+                jobInfo = job;
+            }
+        }
 
         Assert.assertEquals(jobInfo.getMaxExecutionDelayMillis(), 30000l);
         Assert.assertEquals(jobInfo.getMinLatencyMillis(), 30000l);
-        Assert.assertEquals(jobInfo.getId(), 1);
+        Assert.assertEquals(jobInfo.getId(), 2);
         Assert.assertEquals(jobInfo.getExtras().getLong("interval"), 30000l);
         Assert.assertNotNull(jobInfo);
     }
