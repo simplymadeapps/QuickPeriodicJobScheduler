@@ -20,3 +20,5 @@ test:
     - adb shell input tap 386 612
     - ./gradlew jacocoTestReportDebug
     - ./gradlew createDebugCoverageReport
+  post:
+    - bash <(curl -s https://codecov.io/bash) -t 784a5597-3f28-4c2c-9016-971e5f631194
