@@ -40,8 +40,8 @@ public class QuickPeriodicJobRunner extends JobService {
             // Run the job
             job.getJob().execute(new QuickJobFinishedCallback() {
                 @Override
-                public void jobFinished(boolean shouldBeRescheduled) {
-                    QuickPeriodicJobRunner.this.jobFinished(jobParameters, shouldBeRescheduled);
+                public void jobFinished() {
+                    QuickPeriodicJobRunner.this.jobFinished(jobParameters, false);
                 }
             });
         }

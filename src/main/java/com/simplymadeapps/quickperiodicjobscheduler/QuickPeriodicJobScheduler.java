@@ -4,7 +4,9 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
 
 /**
  * Created by stephenruda on 9/21/17.
@@ -37,6 +39,7 @@ public class QuickPeriodicJobScheduler {
         builder.setExtras(bundle);
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobScheduler.schedule(builder.build());
+        storeIsJobScheduled(jobId, true, periodicInterval);
     }
 
     /**
@@ -46,5 +49,20 @@ public class QuickPeriodicJobScheduler {
     public void stop(int jobId) {
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobScheduler.cancel(jobId);
+        storeIsJobScheduled(jobId, false, 30000l);
+    }
+
+    /**
+     * We must reschedule jobs after an update.  For this reason, we have to keep track of the jobs we have scheduled
+     * @param jobId the id of the job
+     * @param isScheduled whether or not this job is set to be scheduled
+     * @param periodicInterval the interval at which the job fires
+     */
+    protected void storeIsJobScheduled(int jobId, boolean isScheduled, long periodicInterval) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("quickperiodicjobscheduler_isjobscheduled_"+jobId, isScheduled);
+        editor.putLong("quickperiodicjobscheduler_periodicInterval_"+jobId, periodicInterval);
+        editor.commit();
     }
 }
