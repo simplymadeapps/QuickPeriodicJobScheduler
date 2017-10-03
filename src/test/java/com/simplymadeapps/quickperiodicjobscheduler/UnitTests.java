@@ -20,7 +20,7 @@ public class UnitTests {
         QuickPeriodicJob job = new QuickPeriodicJob(1, new PeriodicJob() {
             @Override
             public void execute(QuickJobFinishedCallback callback) {
-                callback.jobFinished(false);
+                callback.jobFinished();
             }
         });
 

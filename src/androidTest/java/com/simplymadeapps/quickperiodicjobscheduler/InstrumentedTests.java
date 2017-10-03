@@ -55,7 +55,7 @@ public class InstrumentedTests {
         QuickPeriodicJob job = new QuickPeriodicJob(1, new PeriodicJob() {
             @Override
             public void execute(QuickJobFinishedCallback callback) {
-                callback.jobFinished(false);
+                callback.jobFinished();
             }
         });
 
@@ -75,5 +75,65 @@ public class InstrumentedTests {
         qpjs.start(5, 0l);
 
         SystemClock.sleep(10000);
+    }
+
+    @Test
+    public void testUpgradeReceiver() {
+        Context context = InstrumentationRegistry.getTargetContext();
+
+        QuickPeriodicJob job1 = new QuickPeriodicJob(10, new PeriodicJob() {
+            @Override
+            public void execute(QuickJobFinishedCallback callback) {
+                callback.jobFinished();
+            }
+        });
+
+        QuickPeriodicJob job2 = new QuickPeriodicJob(11, new PeriodicJob() {
+            @Override
+            public void execute(QuickJobFinishedCallback callback) {
+                callback.jobFinished();
+            }
+        });
+
+        QuickPeriodicJob job3 = new QuickPeriodicJob(12, new PeriodicJob() {
+            @Override
+            public void execute(QuickJobFinishedCallback callback) {
+                callback.jobFinished();
+            }
+        });
+
+        QuickPeriodicJobCollection.addJob(job1);
+        QuickPeriodicJobCollection.addJob(job2);
+        QuickPeriodicJobCollection.addJob(job3);
+
+        QuickPeriodicJobScheduler qpjs = new QuickPeriodicJobScheduler(context);
+        qpjs.start(10, 60000l);
+        qpjs.start(12, 60000l);
+
+        UpgradeReceiver upgradeReceiver = new UpgradeReceiver();
+        upgradeReceiver.onReceive(context, null);
+
+        SystemClock.sleep(10000);
+
+        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        boolean tenIsFound = false;
+        boolean elevenIsFound = false;
+        boolean twelveIsFound = false;
+        List<JobInfo> jobInfoList = jobScheduler.getAllPendingJobs();
+        for(JobInfo job : jobInfoList) {
+            if(job.getId() == 10) {
+                tenIsFound = true;
+            }
+            if(job.getId() == 11) {
+                elevenIsFound = true;
+            }
+            if(job.getId() == 12) {
+                twelveIsFound = true;
+            }
+        }
+
+        Assert.assertTrue(tenIsFound);
+        Assert.assertFalse(elevenIsFound);
+        Assert.assertTrue(twelveIsFound);
     }
 }
