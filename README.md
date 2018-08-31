@@ -1,5 +1,6 @@
 # Quick Periodic Job Scheduler
 A library for Android that allows you to run periodic jobs more frequently than 15 minutes apart.
+
 [![codecov](https://codecov.io/gh/simplymadeapps/QuickPeriodicJobScheduler/branch/master/graph/badge.svg?token=7ZCnsUO8fL)](https://codecov.io/gh/simplymadeapps/QuickPeriodicJobScheduler)
 [![CircleCI](https://circleci.com/gh/simplymadeapps/QuickPeriodicJobScheduler.svg?style=svg)](https://circleci.com/gh/simplymadeapps/QuickPeriodicJobScheduler)
 
