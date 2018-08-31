@@ -1,4 +1,5 @@
 # Quick Periodic Job Scheduler
+A library for Android that allows you to run periodic jobs more frequently than 15 minutes apart.
 [![codecov](https://codecov.io/gh/simplymadeapps/QuickPeriodicJobScheduler/branch/master/graph/badge.svg?token=7ZCnsUO8fL)](https://codecov.io/gh/simplymadeapps/QuickPeriodicJobScheduler)
 [![CircleCI](https://circleci.com/gh/simplymadeapps/QuickPeriodicJobScheduler.svg?style=svg)](https://circleci.com/gh/simplymadeapps/QuickPeriodicJobScheduler)
 
@@ -11,7 +12,6 @@ I had originally created this project because I wanted to avoid using a Foregrou
 
 ---
 
-A library for Android that allows you to run periodic jobs more frequently than 15 minutes apart.
 # Purpose
 Using the JobScheduler on Android 5 and Android 6, you could schedule periodic jobs to run just a few minutes apart.  Starting in Android 7, all periodic jobs ran at least 15 minutes apart.  This library will allow you to schedule a periodic job to fire more frequently than 15 minutes on Android 7 and higher.
 # Getting Started
