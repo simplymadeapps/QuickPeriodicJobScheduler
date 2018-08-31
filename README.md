@@ -2,6 +2,15 @@
 [![codecov](https://codecov.io/gh/simplymadeapps/QuickPeriodicJobScheduler/branch/master/graph/badge.svg?token=7ZCnsUO8fL)](https://codecov.io/gh/simplymadeapps/QuickPeriodicJobScheduler)
 [![CircleCI](https://circleci.com/gh/simplymadeapps/QuickPeriodicJobScheduler.svg?style=svg)](https://circleci.com/gh/simplymadeapps/QuickPeriodicJobScheduler)
 
+## THIS PROJECT IS DEPRECATED
+I am no longer using this library in any of my projects and therefore will not be updating it.  I decided to move all of my continuously running work into a Foreground Service.
+
+## What now?
+You may continue to use this project but I will not be updating it any further.  If you need to make any changes I would recommend forking the library and changing what you need.
+I had originally created this project because I wanted to avoid using a Foreground Service as showing a constant notification was not preferred.  After testing both scenarios, running a Foreground Service was much more consistent and is (in my opinion) the ideal way to run constant background work.
+
+---
+
 A library for Android that allows you to run periodic jobs more frequently than 15 minutes apart.
 # Purpose
 Using the JobScheduler on Android 5 and Android 6, you could schedule periodic jobs to run just a few minutes apart.  Starting in Android 7, all periodic jobs ran at least 15 minutes apart.  This library will allow you to schedule a periodic job to fire more frequently than 15 minutes on Android 7 and higher.
